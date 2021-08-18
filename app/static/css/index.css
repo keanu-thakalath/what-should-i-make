@@ -1,0 +1,20 @@
+.recipe-link {
+  display: block;
+  color: black;
+  text-decoration: none;
+}
+
+#submit {
+  border: 1px solid #ced4da;
+}
+
+.fa-sort-amount-down-alt {
+  font-size: 25px;
+  color: gray;
+}
+
+.input-group-text {
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=index.css.map */

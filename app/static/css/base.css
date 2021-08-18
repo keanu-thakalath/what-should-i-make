@@ -1,0 +1,18 @@
+nav.navbar > div > a > i.fas {
+  font-size: 50px;
+  color: #C26DBC;
+}
+
+.fa-leaf, .fa-vine {
+  color: #34a203;
+}
+
+.difficulty-star {
+  color: #CA0B00;
+}
+
+.taste-star {
+  color: #FDCC0D;
+}
+
+/*# sourceMappingURL=base.css.map */

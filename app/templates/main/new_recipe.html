@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+    <div>
+        <form class="row mx-4 mt-5" action="" method="post" novalidate autocomplete="off">
+            {{ form.hidden_tag() }}
+            <div class="col-12 mb-3">
+                {{ form.name(class='form-control' + (' is-invalid' if form.name.errors else ''), placeholder='Name') }}
+                {% for error in form.name.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-6 mb-3">
+                {{ form.meal(class='form-select' + (' is-invalid' if form.meal.errors else '')) }}
+                {% for error in form.meal.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-6 mb-3">
+                {{ form.cuisine(class='form-select' + (' is-invalid' if form.cuisine.errors else '')) }}
+                {% for error in form.cuisine.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-6 mb-3">
+                <div class="form-check">
+                    {{ form.vegetarian(class='form-check-input' + (' is-invalid' if form.vegetarian.errors else '')) }}
+                    {{ form.vegetarian.label(class='form-check-label') }}
+                    {% for error in form.vegetarian.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-6 mb-3">
+                <div class="form-check">
+                    {{ form.vegan(class='form-check-input' + (' is-invalid' if form.vegan.errors else '')) }}
+                    {{ form.vegan.label(class='form-check-label') }}
+                    {% for error in form.vegan.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-6 mb-3">
+                {{ form.difficulty_rating.label(class='form-label') }}
+                {{ form.difficulty_rating(class='form-select' + (' is-invalid' if form.difficulty_rating.errors else '')) }}
+                {% for error in form.difficulty_rating.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-6 mb-3">
+                {{ form.taste_rating.label(class='form-label') }}
+                {{ form.taste_rating(class='form-select' + (' is-invalid' if form.taste_rating.errors else '')) }}
+                {% for error in form.taste_rating.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-12">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

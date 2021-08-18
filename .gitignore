@@ -1,0 +1,10 @@
+__pycache__/
+Include/
+Lib/
+Scripts/
+logs/
+whooshee/
+pyvenv.cfg
+app.db
+.env
+.flaskenv

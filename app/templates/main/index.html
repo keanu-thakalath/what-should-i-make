@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
+
+{% block app_content %}
+    <div class="my-4 pb-5">
+        <form class="mx-4" action="" method="post" novalidate autocomplete="off">
+            {{ form.hidden_tag() }}
+            <div class="row">
+                <div class="col-12 input-group mb-3">
+                    {{ form.query(class='form-control' + (' is-invalid' if form.query.errors else ''), placeholder='Query') }}
+                    {{ form.submit(class="btn input-group-text") }}
+                    <a class="input-group-text" data-bs-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="filters">
+                        <i class="fas fa-sort-amount-down-alt"></i>
+                    </a>
+                    {% for error in form.query.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <div id="filters" class="collapse row">
+                <div class="col-12 mb-3">
+                    {{ form.meal(class='form-select' + (' is-invalid' if form.meal.errors else '')) }}
+                    {% for error in form.meal.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-12 mb-3">
+                    {{ form.cuisine(class='form-select' + (' is-invalid' if form.cuisine.errors else '')) }}
+                    {% for error in form.cuisine.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-6 mb-3">
+                    <div class="form-check">
+                        {{ form.meat(class='form-check-input' + (' is-invalid' if form.meat.errors else '')) }}
+                        {{ form.meat.label(class='form-check-label') }}
+                        {% for error in form.meat.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-6 mb-3">
+                    <div class="form-check">
+                        {{ form.vegetarian(class='form-check-input' + (' is-invalid' if form.vegetarian.errors else '')) }}
+                        {{ form.vegetarian.label(class='form-check-label') }}
+                        {% for error in form.vegetarian.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <div class="form-check">
+                        {{ form.vegan(class='form-check-input' + (' is-invalid' if form.vegan.errors else '')) }}
+                        {{ form.vegan.label(class='form-check-label') }}
+                        {% for error in form.vegan.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-6 mb-3">
+                    {{ form.difficulty_rating.label(class='form-label') }}
+                    {{ form.difficulty_rating(class='form-select' + (' is-invalid' if form.difficulty_rating.errors else '')) }}
+                    {% for error in form.difficulty_rating.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-6 mb-3">
+                    {{ form.taste_rating.label(class='form-label') }}
+                    {{ form.taste_rating(class='form-select' + (' is-invalid' if form.taste_rating.errors else '')) }}
+                    {% for error in form.taste_rating.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+        {% for recipe in recipes %}
+            <a class="recipe-link" href="{{ url_for('main.recipe', id=recipe.id) }}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe.name }}</h5>
+                        <h6 class="card-subtitle text-muted">{{ recipe.meal }}</h6>
+                        <h6 class="card-subtitle text-muted">{{ recipe.cuisine }}</h6>
+                        {% if recipe.vegetarian %}
+                            <i class="fas fa-leaf"></i>
+                        {% endif %}
+                        {% if recipe.vegan %}
+                            <i class="fab fa-vine"></i>
+                        {% endif %}
+                        {% if recipe.vegan or recipe.vegetarian %}
+                            <br>
+                        {% endif %}
+                        <p class="card-subtitle">Difficulty:
+                            {% for i in range(recipe.difficulty_rating) %}
+                                <i class="difficulty-star fas fa-star"></i>
+                            {% endfor %}
+                        </p>
+                        <p class="card-subtitle">Taste:
+                            {% for i in range(recipe.taste_rating) %}
+                                <i class="taste-star fas fa-star"></i>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+        {% if not recipes %}
+            <p class="mx-4">No results. Click the plus button to add recipes!</p>
+        {% endif %}
+    </div>
+{% endblock %}

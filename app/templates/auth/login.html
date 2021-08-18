@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+    <div>
+        <form class="row mx-4 mt-5" action="" method="post" novalidate autocomplete="off">
+            <h2 class="text-center">Sign In</h2>
+            {{ form.hidden_tag() }}
+            <div class="col-12 mb-3">
+                {{ form.username(class='form-control' + (' is-invalid' if form.username.errors else ''), placeholder='Username') }}
+                {% for error in form.username.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-12 mb-3">
+                {{ form.password(class='form-control' + (' is-invalid' if form.password.errors else ''), placeholder='Password') }}
+                {% for error in form.password.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-12">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+            <p>Don't have an account? <a href="{{ url_for('auth.register') }}">Register now!</a></p>
+        </form>
+    </div>
+{% endblock %}
