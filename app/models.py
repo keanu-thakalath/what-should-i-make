@@ -4,8 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    username = db.Column(db.String())
-    password_hash = db.Column(db.String())
+    username = db.Column(db.String(64))
+    password_hash = db.Column(db.String(128))
     recipes = db.relationship('Recipe', backref='user', lazy='dynamic')
 
     def set_password(self, password):
@@ -23,9 +23,9 @@ class User(UserMixin, db.Model):
 @whooshee.register_model('name')
 class Recipe(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String())
-    meal = db.Column(db.String())
-    cuisine = db.Column(db.String())
+    name = db.Column(db.String(64))
+    meal = db.Column(db.String(32))
+    cuisine = db.Column(db.String(32))
     vegetarian = db.Column(db.Boolean())
     vegan = db.Column(db.Boolean())
     difficulty_rating = db.Column(db.Integer())
