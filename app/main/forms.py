@@ -21,6 +21,11 @@ class FilterForm(FlaskForm):
         super().__init__()
         self.cuisine.choices = [(c, c) for c in current_app.config['CUISINES']]
 
+    def validate_query(self, query):
+        if len(query.data) > 0 and len(query.data) < 3:
+            raise ValidationError('The query must be longer than 2 characters.')
+
+
     def validate_vegan(self, vegan):
         if (vegan.data and not self.vegetarian.data):
             raise ValidationError('The recipe must be vegetarian if it is vegan.')
