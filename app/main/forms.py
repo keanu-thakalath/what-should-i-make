@@ -1,6 +1,7 @@
 from app.models import Recipe
 from app import db
 from flask import current_app
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from sqlalchemy import func
 from wtforms import StringField, SelectField, SubmitField, BooleanField, SelectMultipleField
@@ -59,7 +60,7 @@ class RecipeForm(FlaskForm):
             raise ValidationError('The recipe must be vegetarian if it is vegan.')
 
     def validate_name(self, name):
-        recipe = Recipe.query.filter(func.lower(Recipe.name) == func.lower(name.data)).first()
+        recipe = current_user.recipes.filter(func.lower(Recipe.name) == func.lower(name.data)).first()
         if self.editing:
             if recipe is not None and recipe.name != self.initial_name:
                 raise ValidationError('You already have a recipe with this name.')
